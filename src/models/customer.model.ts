@@ -2,7 +2,6 @@ import {prisma} from "../db/db";
 import catchError from "http-errors"
 import {StatusCodes} from "http-status-codes"
 import {ResponseMessage} from "../utils/responseMessage.util"
-import {authModel} from "./auth.model"
 import {Customer} from "../generated/prisma/client";
 import {CustomerQueryCondition} from "../utils/customerQueryCondition.util";
 
@@ -25,11 +24,6 @@ class CustomerModel{
     }
 
     async createCustomer(customer: Customer){
-        //----> Only admin can create a customer.
-        const session = authModel.getSession();
-        if(!session.isAdmin) throw catchError(StatusCodes.FORBIDDEN, "Only admin can create a customer!");
-        customer.userId = session.id;
-
         //----> Save the changes in the db.
         const newCustomer = await prisma.customer.create({data: customer});
 
@@ -64,13 +58,13 @@ class CustomerModel{
         return await prisma.customer.findMany();
     }
 
-    async getAllActiveCustomers(){
+    async getActiveCustomers(){
         //----> Fetch all active customers from db.
         const query: CustomerQueryCondition = {active: true};
         return await this.getCustomerByQueryCondition(query);
     }
 
-    async getAllInactiveCustomers(){
+    async getInactiveCustomers(){
         //----> Fetch all active customers from db.
         const query: CustomerQueryCondition = {active: false};
         return await this.getCustomerByQueryCondition(query);
@@ -110,3 +104,5 @@ class CustomerModel{
     }
 
 }
+
+export const customerModel = new CustomerModel();
