@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.route";
 import tokenRoute from "./routes/token.route";
+import customerRoute from "./routes/customer.route";
 import notFoundRouteMiddleware from "./middlewares/notFoundRouteMiddleware.middleware";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.middleware";
 import { authenticationMiddleware } from "./middlewares/authenticationMiddleware.middleware";
@@ -40,6 +41,7 @@ app.use(authenticationMiddleware);
 app.use("/api/auth", authRoute);
 
 //----> Customer routes.
+app.use("/api/customers", customerRoute);
 
 //----> Ticket routes.
 

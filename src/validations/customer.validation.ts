@@ -6,7 +6,7 @@ export const customerSchema = z.object({
     name: z.string().min(3, {message: "Name must be provided"}),
     email: z.string().min(3, {message: "Email must be provided"}).regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
     phone: z.string().min(3, {message: "Phone must be provided"}),
-    Image: z.string().min(3, {message: "Image must be provided"}),
+    image: z.string().min(3, {message: "Image must be provided"}),
     gender: z.enum(["Male", "Female"]),
     dateOfBirth: z.string().min(3, {message: "Birthdate must be provided"}),
     active: z.boolean().default(true),

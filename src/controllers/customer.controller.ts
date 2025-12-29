@@ -3,46 +3,56 @@ import {StatusCodes} from "http-status-codes";
 import {Customer, Role} from "../generated/prisma/client";
 import {TokenJwt} from "../utils/tokenJwt.util";
 import {customerModel} from "../models/customer.model";
+import catchError from "http-errors"
 
 export class CustomerController {
-    static async changeCustomerStatus(){}
+    static async changeCustomerStatus(req: Request, res: Response){
+        //----> Get the customer id from params.
+        const {id} = req.params;
+
+        //----> Change the customer status from the database.
+        const response = await customerModel.changeCustomerStatus(id);
+
+        //----> Send back response.
+        res.status(StatusCodes.OK).json(response);
+    }
 
     static async createCustomer(req: Request, res: Response){
         //----> Extract the payload from the request.
-        const {customer} = req.body as Customer;
+        const customer = req.body as Customer;
 
         //----> Only admin can create a customer.
         const userTokenJwt = req.user as TokenJwt;
-        if(!userTokenJwt.role !== Role.Admin) throw catchError(StatusCodes.FORBIDDEN, "Only admin can create a customer!");
+        if(userTokenJwt.role !== Role.Admin) throw catchError(StatusCodes.FORBIDDEN, "Only admin can create a customer!");
 
         //----> Attach the user id to the customer.
-        customer.userId = session.id;
+        customer.userId = userTokenJwt.id;
 
         //----> Store the customer in the database.
-        const response = customerModel.createCustomer(customer);
+        const response = await customerModel.createCustomer(customer);
 
         //----> Send back response.
         res.status(StatusCodes.CREATED).json(response);
     }
 
-    static async deleteCustomer(req: Request, res: Response){
+    static async deleteCustomerById(req: Request, res: Response){
         //----> Get the customer id from params.
         const {id} = req.params;
 
         //----> Delete the customer from the database.
-        const response = await customerModel.deleteCustomer(id);
+        const response = await customerModel.deleteCustomerById(id);
 
         //----> Send back response.
         res.status(response.statusCode).json(response);
     }
 
-    static async editCustomer(req: Request, res: Response){
+    static async editCustomerById(req: Request, res: Response){
         //----> Get the customer id from params and payload from the request body.
         const {id} = req.params;
-        const {customer} = req.body as Customer;
+        const customer = req.body as Customer;
 
         //----> Edit the customer from the database.
-        const response = await customerModel.editCustomer(id, customer);
+        const response = await customerModel.editCustomerById(id, customer);
 
         //----> Send back response.
         res.status(response.statusCode).json(response);
@@ -56,7 +66,7 @@ export class CustomerController {
         res.status(StatusCodes.OK).json(response);
     }
 
-    static async getActiveCustomers(){
+    static async getActiveCustomers(req: Request, res: Response){
         //----> Get active customers from the database.
         const response = await customerModel.getActiveCustomers();
 
@@ -75,7 +85,7 @@ export class CustomerController {
         res.status(StatusCodes.OK).json(response);
     }
 
-    static async getInactiveCustomers(){
+    static async getInactiveCustomers(req: Request, res: Response){
         //----> Get inactive customers from the database.
         const response = await customerModel.getInactiveCustomers();
 

@@ -1,7 +1,7 @@
 export class CustomerQueryCondition {
     constructor(
         public id?: string,
-        public active?: string,
+        public active?: boolean,
 
     ) {}
 }

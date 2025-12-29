@@ -4,6 +4,7 @@ import {StatusCodes} from "http-status-codes"
 import {ResponseMessage} from "../utils/responseMessage.util"
 import {Customer} from "../generated/prisma/client";
 import {CustomerQueryCondition} from "../utils/customerQueryCondition.util";
+import {toCustomerDto} from "../dto/customer.dto";
 
 class CustomerModel{
     async changeCustomerStatus(id: string){
@@ -28,10 +29,10 @@ class CustomerModel{
         const newCustomer = await prisma.customer.create({data: customer});
 
         //----> Send back the response.
-        return newCustomer;
+        return toCustomerDto(newCustomer);
     }
 
-    async deleteCustomer(id: string){
+    async deleteCustomerById(id: string){
         //----> Fetch the customer object with the given id.
         const customer = await this.getOneCustomer(id);
 
@@ -42,7 +43,7 @@ class CustomerModel{
         return new ResponseMessage("Customer deleted successfully!", "success", StatusCodes.OK);
     }
 
-    async editCustomer(id: string, customer: Customer){
+    async editCustomerById(id: string, customer: Customer){
         //----> Fetch the customer object with the given id.
         await this.getOneCustomer(id);
 
@@ -55,29 +56,29 @@ class CustomerModel{
 
     async getAllCustomers(){
         //----> Fetch all customers from db.
-        return await prisma.customer.findMany();
+        return (await prisma.customer.findMany()).map(customer => toCustomerDto(customer));
     }
 
     async getActiveCustomers(){
         //----> Fetch all active customers from db.
         const query: CustomerQueryCondition = {active: true};
-        return await this.getCustomerByQueryCondition(query);
+        return (await this.getCustomerByQueryCondition(query)).map(customer => toCustomerDto(customer));
     }
 
     async getInactiveCustomers(){
         //----> Fetch all active customers from db.
         const query: CustomerQueryCondition = {active: false};
-        return await this.getCustomerByQueryCondition(query);
+        return(await this.getCustomerByQueryCondition(query)).map(customer => toCustomerDto(customer));
     }
 
     async getCustomerById(id: string){
         //----> Fetch the customer object with the given id.
-        return await this.getOneCustomer(id);
+        return toCustomerDto(await this.getOneCustomer(id));
     }
 
     private async getCustomerByQueryCondition(query: CustomerQueryCondition){
         //----> Fetch customers with the given query from db.
-        const customers = await prisma.customer.findMany({where: {query}});
+        const customers = await prisma.customer.findMany({where: {...query}});
 
         //----> Check for empty customers.
         if (!customers?.length) {
