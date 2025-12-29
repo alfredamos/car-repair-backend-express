@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="186d5474-6fe2-44e8-b9b7-95f1c48f6780" name="Changes" comment="" />
+    <list default="true" id="186d5474-6fe2-44e8-b9b7-95f1c48f6780" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/models/customer.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +24,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "alfredamos"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/alfredamos/car-repair-backend-express.git",
+    "accountId": "ab2de1ef-1e03-4984-96c1-529e4d751c97"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -48,6 +66,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "24.12.0",
     "javascript.nodejs.core.library.typings.version": "24.10.4",
@@ -94,7 +113,7 @@
       <workItem from="1766886434610" duration="247000" />
       <workItem from="1766925475677" duration="2200000" />
       <workItem from="1766928630172" duration="16634000" />
-      <workItem from="1766998332582" duration="8616000" />
+      <workItem from="1766998332582" duration="10907000" />
     </task>
     <servers />
   </component>
