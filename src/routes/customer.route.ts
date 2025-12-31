@@ -2,9 +2,11 @@ import express from "express";
 import {CustomerController} from "../controllers/customer.controller";
 import {customerMiddleware} from "../middlewares/customerMiddleware.middleware";
 import {adminAuthorizationMiddleware} from "../middlewares/adminAuthorizationMiddleware.middleware";
-import {sameUserOrAdminMiddleware} from "../middlewares/sameUserOrAdminMiddleware.middleware";
+import {idCheckMiddleware} from "../middlewares/idCheckMiddleware.middleware";
 
 const router = express.Router();
+
+router.param("id", idCheckMiddleware);
 
 router.route("/")
     .post(adminAuthorizationMiddleware, customerMiddleware, CustomerController.createCustomer)
@@ -21,7 +23,7 @@ router.route("/all-active/get-all-active-customers")
 router.route("/all-inactive/get-all-inactive-customers")
     .get(adminAuthorizationMiddleware, CustomerController.getInactiveCustomers);
 
-router.route("/activate-customer/:id")
+router.route("/change-status/:id")
     .patch(adminAuthorizationMiddleware, CustomerController.changeCustomerStatus);
 
 export default router;

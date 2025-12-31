@@ -6,7 +6,8 @@ import {StatusCodes} from 'http-status-codes';
 class UserModel {
     async getAllUsers(){
         //----> Retrieve all users from the database.
-        return (await userModel.getAllUsers()).map(user => toUserDto(user));
+        const users = await prisma.user.findMany();
+        return users.map(user => toUserDto(user));
     }
 
     async getUserById(id: string){
@@ -15,11 +16,11 @@ class UserModel {
 
         //----> Check for null user.
         if (!user) {
-            throw new catchError(StatusCodes.NOT_FOUND, "User not available in db!");
+            throw catchError(StatusCodes.NOT_FOUND, "User not available in db!");
         }
 
         //----> Return user.
-        return toUserDto(await userModel.getUserById(id));
+        return toUserDto(user);
     }
 
     async getUserByEmail(email: string){
@@ -28,12 +29,12 @@ class UserModel {
 
         //----> Check for null user.
         if (!user) {
-            throw new catchError(StatusCodes.NOT_FOUND, "User not available in db!");
+            throw catchError(StatusCodes.NOT_FOUND, "User not available in db!");
         }
 
         //----> Return user.
-        return toUserDto(await userModel.getUserById(id));
+        return toUserDto(user);
     }
 }
 
-export const UserModel = UserModel();
+export const userModel = new UserModel();

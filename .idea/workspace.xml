@@ -4,10 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="186d5474-6fe2-44e8-b9b7-95f1c48f6780" name="Changes" comment="Add customer routes with CRUD functionalities.">
-      <change afterPath="$PROJECT_DIR$/src/models/ticket.model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/ticketQueryCondition.ts" afterDir="false" />
+    <list default="true" id="186d5474-6fe2-44e8-b9b7-95f1c48f6780" name="Changes" comment="Add ticket model with CRUD functionalities.">
+      <change afterPath="$PROJECT_DIR$/src/controllers/ticket.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlewares/idCheckMiddleware.middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlewares/sameUserIdOrAdminMiddleware.middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlewares/ticketMiddleware.middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/ticket.route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dto/user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/sameUserOrAdminMiddleware.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/sameUserEmailOrAdminMiddleware.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/customer.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/customer.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/ticket.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ticket.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/customer.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customer.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/token.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/token.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validations/ticket.validation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/ticket.validation.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,18 +41,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "alfredamos"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;alfredamos&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/alfredamos/car-repair-backend-express.git",
-    "accountId": "ab2de1ef-1e03-4984-96c1-529e4d751c97"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/alfredamos/car-repair-backend-express.git&quot;,
+    &quot;accountId&quot;: &quot;ab2de1ef-1e03-4984-96c1-529e4d751c97&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -62,6 +75,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -73,7 +87,7 @@
     "javascript.nodejs.core.library.typings.version": "24.10.4",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/alfre/OneDrive/Backends/ExpressTs/car-repair-backend-express",
+    "last_opened_file_path": "C:/Users/alfre/OneDrive/Backends/ExpressTs/car-repair-backend-express/src/middlewares",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +105,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alfre\OneDrive\Backends\ExpressTs\car-repair-backend-express\src\middlewares" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -114,7 +133,8 @@
       <workItem from="1766886434610" duration="247000" />
       <workItem from="1766925475677" duration="2200000" />
       <workItem from="1766928630172" duration="16634000" />
-      <workItem from="1766998332582" duration="21742000" />
+      <workItem from="1766998332582" duration="25408000" />
+      <workItem from="1767086164700" duration="7900000" />
     </task>
     <task id="LOCAL-00001" summary="Add customer model with CRUD functionalities.">
       <option name="closed" value="true" />
@@ -140,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767046640141</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add ticket model with CRUD functionalities.">
+      <option name="closed" value="true" />
+      <created>1767048932075</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1767048932075</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +178,8 @@
     <MESSAGE value="Add customer model with CRUD functionalities." />
     <MESSAGE value="Add customer controller with CRUD functionalities." />
     <MESSAGE value="Add customer routes with CRUD functionalities." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add customer routes with CRUD functionalities." />
+    <MESSAGE value="Add ticket model with CRUD functionalities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add ticket model with CRUD functionalities." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

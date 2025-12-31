@@ -19,6 +19,7 @@ import {CookieParam} from "../utils/CookieParam.util";
 import {fromSignupToUser} from "../utils/fromSignupToUser.util";
 import {UserSession} from "../types/express";
 import {toUserDto} from "../dto/user.dto"
+import { v4 as uuidv4 } from "uuid";
 
 class AuthModel {
     async changeUserPassword(changePassword: ChangeUserPassword) {
@@ -217,7 +218,7 @@ class AuthModel {
 
         //----> Validate accessToken.
         const tokenJwt = this.validateUserToken(accessToken);
-        req.user = tokenJwt;
+        //req.user = tokenJwt;
 
         //----> Create a session object and return it.
         return this.makeSession(tokenJwt, accessToken);
@@ -296,15 +297,15 @@ class AuthModel {
 
     private makeNewToken(accessToken: string, refreshToken: string, userId: string): Token{
         return {
-            id: undefined,
+            id: uuidv4(),
             accessToken,
             refreshToken,
             expired: false,
             revoked: false,
             tokenType: TokenType.Bearer,
             userId,
-            createdAt: undefined,
-            updatedAt: undefined,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         }
     }
 

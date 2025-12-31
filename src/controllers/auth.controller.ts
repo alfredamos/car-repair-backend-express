@@ -28,7 +28,7 @@ export class AuthController {
         const payload = req.body as ChangeUserRole;
 
         //----> Check for admin privilege, only admin can change a role.
-        if(req.user.role !== Role.Admin){
+        if(req.user?.role !== Role.Admin){
             throw catchError(StatusCodes.FORBIDDEN, "Only admin can change role!");
         }
 
@@ -53,7 +53,7 @@ export class AuthController {
     static async getCurrentUser(req: Request, res: Response){
         //----> Get the user token details from a request object.
         const tokenJwt = req?.user;
-        const email = tokenJwt?.email;
+        const email = tokenJwt?.email as string;
         console.log("In get-current-user, user : ", tokenJwt);
 
         //----> Call the authModel to get the current user details.
@@ -70,6 +70,16 @@ export class AuthController {
         //----> Call the authModel to log in the user.
         const response = await authModel.loginUser(payload, res);
 
+        //----> Set the user info on request.
+        if (response.isLoggedIn){
+            req.user = {
+                id: response.id,
+                name: response.name,
+                email: response.email,
+                role: response.role as Role
+            }
+        }
+
         //----> Send the response back to the client.
         res.status(StatusCodes.OK).json(response);
     }
@@ -77,6 +87,11 @@ export class AuthController {
     static async logoutUser(req: Request, res: Response){
         //----> Call the authModel to log in the user.
         const response = await authModel.logoutUser(req, res);
+
+        //----> Remove the user info from request object.
+        if (response.statusCode === StatusCodes.OK){
+            req.user = null
+        }
 
         //----> Send the response back to the client.
         res.status(response.statusCode).json(response);

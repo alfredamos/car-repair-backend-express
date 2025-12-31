@@ -2,16 +2,17 @@ import {Request, Response, NextFunction} from "express";
 import {Role} from "../generated/prisma/client";
 import catchError from "http-errors";
 import {StatusCodes} from "http-status-codes";
+import {TokenJwt} from "../utils/tokenJwt.util"
 
-export function sameUserOrAdminMiddleware(req: Request, res: Response, next: NextFunction) {
+export function sameUserEmailOrAdminMiddleware(req: Request, res: Response, next: NextFunction) {
     //----> Get the user-id and role from token detail on a request object.
-    const { id, role } = req.user;
+    const { email: userEmail, role } = req.user as TokenJwt;
 
     //----> Get the user-id from the request params.
-    const { userId } = req.params;
+    const { email } = req.params;
 
     //----> Check if the user is the same as the requested user or an admin.
-    const isSameUser = id === userId;
+    const isSameUser = userEmail === email;
     const isAdmin = role === Role.Admin;
 
     //----> Different user or not admin.

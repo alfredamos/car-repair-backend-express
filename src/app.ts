@@ -2,9 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import authRoute from "./routes/auth.route";
 import tokenRoute from "./routes/token.route";
 import customerRoute from "./routes/customer.route";
+import ticketRoute from "./routes/ticket.route";
+import userRoute from "./routes/user.route";
+
 import notFoundRouteMiddleware from "./middlewares/notFoundRouteMiddleware.middleware";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.middleware";
 import { authenticationMiddleware } from "./middlewares/authenticationMiddleware.middleware";
@@ -44,11 +48,13 @@ app.use("/api/auth", authRoute);
 app.use("/api/customers", customerRoute);
 
 //----> Ticket routes.
+app.use("/api/tickets", ticketRoute);
 
 //----> Token routes.
 app.use("/api/tokens", tokenRoute);
 
 //----> User routes.
+app.use("/api/users", userRoute);
 
 //----> Not found routes and error middleware.
 app.use(notFoundRouteMiddleware);

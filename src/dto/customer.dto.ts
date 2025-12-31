@@ -1,17 +1,18 @@
+import { tr } from "zod/v4/locales";
 import {Customer, Gender} from "../generated/prisma/client";
 
 class CustomerDto {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-    image: string;
-    gender: Gender;
-    dateOfBirth: string;
-    notes: string;
-    active: boolean;
-    userId: string;
+    id: string = "";
+    name: string = "";
+    email: string = "";
+    phone: string = "";
+    address: string = "";
+    image: string = "";
+    gender: Gender = Gender.Male;
+    dateOfBirth: string = "";
+    notes: string = "";
+    active: boolean = true;
+    userId: string = "";
 }
 
 export function toCustomerDto(customer: Customer): CustomerDto {

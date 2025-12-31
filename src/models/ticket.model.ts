@@ -1,6 +1,6 @@
 import { prisma } from "../db/db";
 import catchError from "http-errors";
-import { StatusCode } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { Ticket } from "../generated/prisma/client";
 import { ResponseMessage } from "../utils/responseMessage.util";
 import { TicketQueryCondition } from "../utils/ticketQueryCondition";
@@ -36,7 +36,7 @@ class TicketModel {
         await prisma.ticket.delete({ where: { id }});
 
         //----> Return feedback.
-        return new ResponseMessage('Ticket deleted successfully!', 'success', StatusCode.OK);
+        return new ResponseMessage('Ticket deleted successfully!', 'success', StatusCodes.OK);
     }
 
     async editTicketById(id: string, ticket: Ticket){
@@ -47,7 +47,7 @@ class TicketModel {
         await prisma.ticket.update({ where: { id }, data: ticket});
 
         //----> Return feedback.
-        return new ResponseMessage('Ticket edited successfully!', 'success', StatusCode.OK);
+        return new ResponseMessage('Ticket edited successfully!', 'success', StatusCodes.OK);
     }
 
     async getAllTickets(){
@@ -91,7 +91,7 @@ class TicketModel {
 
         //----> Check for null ticket.
         if (!ticket) {
-            throw catchError(StatusCode.NOT_FOUND, 'Ticket not found');
+            throw catchError(StatusCodes.NOT_FOUND, 'Ticket not found');
         }
 
         //----> Return ticket.
@@ -104,13 +104,13 @@ class TicketModel {
 
         //----> Check for empty tickets.
         if (!tickets?.length) {
-            throw catchError(StatusCode.NOT_FOUND, 'No tickets match query condition!');
+            return [];
         }
 
         //----> Return tickets.
         return tickets;
     }
 
-
-
 }
+
+export const ticketModel = new TicketModel();

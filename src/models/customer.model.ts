@@ -82,7 +82,7 @@ class CustomerModel{
 
         //----> Check for empty customers.
         if (!customers?.length) {
-            throw catchError(StatusCodes.NOT_FOUND, "No customers match the given query found!");
+            return [];
         }
 
         //----> Return customers.

@@ -1,15 +1,10 @@
 import {Role} from "@prisma/client";
+import { TokenJwt } from "../utils/tokenJwt.util";
 
 declare global {
     namespace Express {
         interface Request {
-            user?: {
-                id: string;
-                name: string;
-                email: string;
-                role: Role
-                // Add any other user-related properties here
-            };
+            user: TokenJwt | null;
             // Add other custom properties to the Request object as needed
             myCustomData?: string;
         }

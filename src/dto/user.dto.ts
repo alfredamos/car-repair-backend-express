@@ -1,4 +1,4 @@
-import {Role} from "../generated/prisma/enums";
+import {Role, Gender} from "../generated/prisma/enums";
 import {User} from "../generated/prisma/client";
 
 export class UserDto {
@@ -7,6 +7,8 @@ export class UserDto {
     email: string;
     role: Role;
     image: string;
+    phone: string;
+    gender: Gender;
 }
 
 export function toUserDto(user: User) :UserDto {
@@ -15,7 +17,9 @@ export function toUserDto(user: User) :UserDto {
         name: user.name,
         email: user.email,
         role: user.role,
-        image: user.image
+        image: user.image,
+        phone: user.phone,
+        gender: user.gender,
 
     }
 }

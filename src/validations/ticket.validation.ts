@@ -10,5 +10,3 @@ export const ticketSchema = z.object({
 });
 
 export type Ticket = z.infer<typeof ticketSchema>
-
-export type Customer = z.infer<typeof customerSchema>
